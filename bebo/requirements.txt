@@ -1,0 +1,6 @@
+quart==0.17.*
+quart_trio==0.9.*
+requests==2.27.*
+cbor2==5.4.*
+cryptography==3.3.*
+dnspython==2.1.0

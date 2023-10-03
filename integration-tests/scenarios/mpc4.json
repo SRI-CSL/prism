@@ -1,0 +1,5 @@
+{
+  "server_count": 6,
+  "messages_per_pair": 3,
+  "message_delay_seconds": 5
+}

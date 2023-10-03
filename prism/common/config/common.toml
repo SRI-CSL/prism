@@ -1,0 +1,100 @@
+# Settings that both client and server use
+
+debug = false
+debug_extra = false
+production = true
+
+# The base name of client registration committee members
+ibe_committee_name = "prism_client_registration"
+# The number of members of the client registration committee
+ibe_shards = 1
+
+# The directory to record logs. If blank, write to stdout.
+log_dir = ""
+
+# supporting distributed tracing with Jaeger:
+jaeger_agent_host = "localhost"
+jaeger_agent_port = 6831
+
+# A salt that is prepended to usernames before hashing them into pseudonyms.
+# If the placeholder {date} is present, it will be substituted with the current
+# date in UTC time.
+pseudonym_salt = "PRISM{date}"
+
+# The modulus used for secret sharing
+mpc_modulus = 210340362182463027693671312934069294429519269866912637212799832923523392566897
+
+# How often to poll dropboxes
+poll_timing_ms = 600000
+# The total number of dropbox committees
+dropbox_count = 1
+# How many dropboxes each client should poll
+dropboxes_per_client = 1
+# How many dropboxes each client should send to when sending a message
+dropbox_send_redundancy = 1
+
+# Whether to create new links at runtime
+dynamic_links = true
+# Whether servers are engaging in the link-state routing protocol
+ls_routing = false
+
+# The number of seconds the dynamic transport will hold on to a package that hasn't been claimed by a hook
+dt_hold_package_sec = 60
+
+
+# seconds to use or add for how long to keep a seen (received) message in memory before forgetting about it:
+# set to 0 if keeping messages forever (= memory leak!)
+msg_seen_ttl = 1800
+# how often to check for expired messages [in seconds]
+msg_seen_sleep = 60.0
+
+# A list of whiteboard URLs for BeboTransport
+whiteboards = []
+# time interval to poll whiteboard for new messages, given as minutes, can be fractions
+# set to 0.0 to avoid polling altogether (even if whiteboards are known)
+wbs_poll_time = 0.05
+# redundancy of polling/posting to whiteboards; should be >0 and <= K: length of list of whiteboards (see above).
+# Uses 1 if <= 0 and K if value given > K.
+wbs_redundancy = 1
+# timeout in seconds to wait for HTTP POST(s) to whiteboard(s) to finish
+wbs_posting_timeout_secs = 6
+# timeout in seconds to wait for HTTP GET to whiteboard to finish
+wbs_polling_timeout_secs = 8
+# maximum number of messages to read when requesting messages from whiteboard
+wbs_polling_batch_size=50
+
+
+# The maximum message size that transports should allow, in bytes
+max_message_size = 100_000_000
+# The maximum cleartext message size that clients should accept, in bytes
+max_plaintext_size = 50_000_000
+
+# The number of seconds between monitor log updates
+log_monitor_interval = 10.0
+log_rotate_bytes = 0
+
+# The number of bytes to include as a checksum with links that do checksumming
+checksum_bytes = 16
+
+# Whether to enable OpenTracing
+tracing = false
+
+# The interval (in seconds) to poll for config file changes. If negative, do not poll.
+watchdog_sleep = 5.0
+
+# Transport timeouts
+transport_send_timeout = 30
+transport_open_connection_timeout = 120
+
+# Set to true if the Prism instance is client-like (either client or Registration committee)
+is_client = false
+
+# Number of channels to open incoming links of each type on
+incoming_channel_count = 1
+
+# Set to false to turn off all control plane messages (e.g. LSP/ARK)
+control_traffic = true
+
+# If true, nodes will only use channels that are tagged for the purpose they are creating a link for
+# If false, nodes will use the "best available" channel as a backup if no tagged channels are available
+strict_channel_tags = false

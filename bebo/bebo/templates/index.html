@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!--
+  ~ Copyright (c) 2019-2020 SRI International.
+  ~ All rights reserved.
+  -->
+
+<h1>BEBO Whiteboard {{ name }}</h1>
+
+<div class="card border-light mb-3">
+    <div class="card-header">Hostname and Version</div>
+    <div class="card-body">
+        <h4 class="card-title">{{ hostname }} (version: {{version}})</h4>
+    </div>
+</div>
+
+<div class="card border-light mb-3">
+    <div class="card-header">Refresh</div>
+    <div class="card-body">
+
+        <h4 class="card-title">last refreshed: {{ last_update_time }} UTC</h4>
+
+        <p>
+        <form id="flush-form" method="get" action="/flush">
+            <a href="#" class="btn btn-info" onClick="window.location.reload()">Refresh</a>
+            <a href="#" class="btn btn-primary" onclick="document.getElementById('flush-form').submit();">Flush</a>
+        </form>
+        </p>
+    </div>
+</div>
+
+<div class="card border-light mb-3">
+    <div class="card-header">Database</div>
+    <div class="card-body">
+        <table data-toggle="table"
+               data-search="true"
+               data-maintain-meta-data="true"
+               data-show-refresh="true">
+            <thead>
+            <tr>
+                <th data-sortable="false" data-width="20" data-width-unit="%">Key</th>
+                <th data-sortable="false">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>UUID</td>
+                <td>{{ db.uuid }}</td>
+            </tr>
+            <tr>
+                <td>Least</td>
+                <td>{{ db.least_sequence_number }}</td>
+            </tr>
+            <tr>
+                <td>Greatest</td>
+                <td>{{ db.next_sequence_number - 1 }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="card border-light mb-3">
+    <div class="card-header">Messages</div>
+    <div class="card-body">
+        <h4 class="card-title">last 50 whiteboard messages</h4>
+        <table data-toggle="table"
+               data-search="true"
+               data-maintain-meta-data="true"
+               data-pagination="true"
+               data-page-list="[10, 25, 50, 100, all]"
+               data-show-pagination-switch="true"
+               data-show-refresh="true">
+            <thead>
+            <tr>
+                <th data-sortable="true" data-width="20" data-width-unit="%">index</th>
+                <th data-sortable="true">message</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for (i, msg) in msgs %}
+            <tr>
+                <td>{{ i }}</td>
+                <td><a href="/messages/explain/{{ i }}">{{ msg }}</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+{% endblock %}

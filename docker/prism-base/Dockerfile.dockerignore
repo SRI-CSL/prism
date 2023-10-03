@@ -1,0 +1,10 @@
+*
+!apt-requirements.txt
+!requirements.txt
+!LICENSE.txt
+!README.md
+
+!bfibe/*
+bfibe/build
+
+**/__pycache__

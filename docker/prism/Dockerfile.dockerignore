@@ -1,0 +1,6 @@
+*
+!prism
+!setup.py
+!VERSION
+!bin
+prism/**/__pycache__

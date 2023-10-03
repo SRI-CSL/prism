@@ -1,0 +1,3 @@
+FROM prism
+
+COPY client/cli/dev-lib/* /opt/prism/lib

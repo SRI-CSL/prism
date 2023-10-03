@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+  bebo1:
+    container_name: "bebo1"
+    image: race-ta1-docker.cse.sri.com/prism-bebo
+    ports:
+      - "8081:4000"
+    environment:
+      NEIGHBORS: "bebo2,bebo3"
+#      SEEDS: bebo1,bebo2,bebo3
+
+  bebo2:
+    container_name: "bebo2"
+    image: race-ta1-docker.cse.sri.com/prism-bebo
+    ports:
+      - "8082:4000"
+    environment:
+      NEIGHBORS: "bebo1,bebo3"
+#      SEEDS: bebo1,bebo2,bebo3
+
+  bebo3:
+    container_name: "bebo3"
+    image: race-ta1-docker.cse.sri.com/prism-bebo
+    ports:
+      - "8083:4000"
+    environment:
+      NEIGHBORS: "bebo1,bebo2"
+#      SEEDS: bebo1,bebo2,bebo3

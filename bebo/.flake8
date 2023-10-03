@@ -1,0 +1,14 @@
+[flake8]
+ignore =
+       # Emacs makes better looking indentation than for continued lines
+       E126,
+       # I don't care about the "two lines before some stuff" rule
+       E302,E305,
+       # whitespace around parameter equals can be excessive
+       E252,
+       # I don't care about "ambigious" variables
+       E741,
+       # I don't mind ending a line with a binary operator
+       W504,
+
+max-line-length = 120

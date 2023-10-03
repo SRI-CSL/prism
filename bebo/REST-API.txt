@@ -1,0 +1,111 @@
+
+This the the BEBO native REST API for its clients:
+
+There is a single path, "/message".
+
+A GET on this path takes the following two optional parameters:
+
+    first: an integer, the sequence number of the first message to
+           retrieve.  The default is 0, which means "the least
+           existing message, if any".  (Message sequence numbers start
+           at 1, so there is no conflict in meaning here.)
+
+	   Please note that sequence numbers are relative to a single
+	   BEBO server and a single instance of the database.  In
+	   particular, restarting the BEBO server or flushing its
+	   database will reset the sequence number sequence.
+
+    count: an integer, the maximum number of messages to retrieve.
+           The default is 1.  A count of 0 may be used to look at the
+           database state information without retrieving any messages.
+	   The server may choose to return fewer objects than requested.
+
+On success, the HTTP status code will be 200.
+
+The GET returns a content-type application/json JSON object with the
+following fields:
+
+    uuid: A UUID in textual form that is unique to a given BEBO server
+          and database instance.  By remembering the UUID, the client
+          can detect if it gets connected to a different BEBO server,
+          or if the database on the server has been reinitialized.
+          This lets the client know if it is safe to use remembered
+          sequence numbers.
+
+    least: An integer.  This is the sequence number of the least message
+           in the database.  If there are no messages in the database,
+	   this field is omitted.
+
+    greatest: An integer.  This is the sequence number of the greatest
+              message in the database.  If there are no messages in
+              the database, this field is omitted.
+
+    messages: A list of Message Information objects.  The list may be
+              empty.  The items on the list are in ascending order by
+	      message sequence number.
+
+A Message Information object contains the following fields:
+
+    id: An integer.  This is the sequence number of the message.
+        Although the server currently only stores contiguous blocks of
+	messages, this API does not assume that, and so returns sequence
+	information for each message.
+
+    content-type: The content-type of the message, if not
+                  application/octet-stream.  For brevity, this field
+                  is not emitted when the content-type is
+                  application/octet-stream.
+
+    message: The message content.  For mime-type application/octet-stream
+             it is a Base64 encoded octet string.
+
+
+A POST on this path injects a message into BEBO.  The content of the message
+should be of content-type application/octet-stream in this version of BEBO.
+
+On success, HTTP status code 201 is returned if the message had not been
+seen before, and 200 is returned if the message is already known to BEBO.
+
+Additionally, the POST returns a content-type application/json JSON
+object with the following fields:
+
+    id: An integer, the sequence number of the injected message in this
+        BEBO server's database.
+
+    uuid: as described above
+
+    least: as described above
+
+    greatest: as described above
+
+
+The PUT (REST update) and DELETE methods are not implemented.
+
+
+EXAMPLES:
+
+% curl 'http://localhost:4000/message?count=0'
+{"messages":[],"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+% curl -d hello 'http://localhost:4000/message'
+{"greatest":1,"id":1,"least":1,"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+# HTTP status 201
+% curl -d world 'http://localhost:4000/message'
+{"greatest":2,"id":2,"least":1,"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+# HTTP status 200
+% curl -d world 'http://localhost:4000/message'
+{"greatest":2,"id":2,"least":1,"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+% curl 'http://localhost:4000/message?count=0'
+{"greatest":2,"least":1,"messages":[],"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+% curl 'http://localhost:4000/message?first=1'
+{"greatest":2,"least":1,"messages":[{"id":1,"message":"aGVsbG8="}],"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+% curl 'http://localhost:4000/message?first=1&count=100'
+{"greatest":2,"least":1,"messages":[{"id":1,"message":"aGVsbG8="},{"id":2,"message":"d29ybGQ="}],"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}
+
+% curl 'http://localhost:4000/message?first=1000&count=100'
+{"greatest":2,"least":1,"messages":[],"uuid":"3f74846a-cff4-48cb-9b06-97057ea7717e"}

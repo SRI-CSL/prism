@@ -1,0 +1,6 @@
+*.log
+bebo.egg-info
+.python-version
+.coverage
+htmlcov
+.dir-locals.el

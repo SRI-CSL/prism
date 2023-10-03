@@ -1,0 +1,25 @@
+FROM python:3.7-slim-buster
+
+# install other requirements
+RUN mkdir -p /opt/bebo
+COPY ./requirements.txt /opt/bebo/requirements.txt
+RUN pip install -r /opt/bebo/requirements.txt
+
+# now copy the rest of our application code
+COPY ./bebo /opt/bebo
+
+ARG VERSION
+RUN echo "Using ${VERSION} as VERSION"
+ARG GIT_COMMIT=unspecified
+ARG GIT_BRANCH=unspecified
+LABEL version=$VERSION
+LABEL git_commit=$GIT_COMMIT
+LABEL git_branch=$GIT_BRANCH
+RUN echo "version=${VERSION}\ngit_commit=${GIT_COMMIT}\ngit_branch=${GIT_BRANCH}" > /opt/bebo/VERSION
+WORKDIR /opt
+
+# run application
+ENV DEBUG False
+ENV PRODUCTION True
+CMD ["python", "-m", "bebo.complete"]
+

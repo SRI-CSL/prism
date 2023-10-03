@@ -1,0 +1,9 @@
+[submodule "mpc/committees/dropbox/mpc/committees/dropbox"]
+	path = mpc/committees/dropbox/mpc/committees/dropbox
+	url = https://gitlab.sri.com/sashidhar.jakkamsetti/microtype
+[submodule "mpc/committees/dropbox/microtype"]
+	path = mpc/committees/dropbox/microtype
+	url = https://gitlab.sri.com/sashidhar.jakkamsetti/microtype
+[submodule "mpc/committees/dropbox/dropbox-on-scale-mamba"]
+	path = mpc/committees/dropbox/dropbox-on-scale-mamba
+	url = https://gitlab.sri.com/sashidhar.jakkamsetti/dropbox-on-scale-mamba

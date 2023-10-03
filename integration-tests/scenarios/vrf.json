@@ -1,0 +1,20 @@
+{
+  "timeout": 180,
+  "server_count": 10,
+  "client_count": 2,
+  "sortition": "VRF",
+  "server_common": {
+    "cs2_arks_max_mtu": 100000,
+    "cs2_ark_sleep_time": 5,
+    "cs2_ark_timeout": 15.0,
+    "cs2_ark_expiration_factor": 10.0,
+    "vrf_p_off": 0.0,
+    "vrf_p_emix": 0.3,
+    "vrf_n_ranges": 1,
+    "vrf_m_replicas": 1,
+    "vrf_c_p_factor": 3.0,
+    "vrf_b_db_emix": 2,
+    "vrf_seed": 0,
+    "vrf_db_index_from_range_id": true
+  }
+}

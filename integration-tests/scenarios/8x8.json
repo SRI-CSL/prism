@@ -1,0 +1,6 @@
+{
+  "timeout": 120,
+  "server_count": 8,
+  "client_count": 8,
+  "messages_per_pair": 50
+}

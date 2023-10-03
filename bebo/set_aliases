@@ -1,0 +1,17 @@
+ifconfig lo0 10.53.0.1/24 alias
+ifconfig lo0 10.53.0.2/24 alias
+ifconfig lo0 10.53.0.3/24 alias
+ifconfig lo0 10.53.0.4/24 alias
+ifconfig lo0 10.53.0.5/24 alias
+ifconfig lo0 10.53.0.6/24 alias
+ifconfig lo0 10.53.0.7/24 alias
+ifconfig lo0 10.53.0.8/24 alias
+ifconfig lo0 inet6 fd53::1/64 alias
+ifconfig lo0 inet6 fd53::2/64 alias
+ifconfig lo0 inet6 fd53::3/64 alias
+ifconfig lo0 inet6 fd53::4/64 alias
+ifconfig lo0 inet6 fd53::5/64 alias
+ifconfig lo0 inet6 fd53::6/64 alias
+ifconfig lo0 inet6 fd53::7/64 alias
+ifconfig lo0 inet6 fd53::8/64 alias
+
